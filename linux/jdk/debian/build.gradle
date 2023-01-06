@@ -109,7 +109,8 @@ task checkJdkDebian(type: Test) {
 	def product = getProduct()
 	def productVersion = getProductVersion()
 
-	environment "PACKAGE", "${product}-${productVersion}-jdk"
+	// TODO find a better solution here!
+	environment "PACKAGE", "${product}-${productVersion}${productVersion.endsWith('-jre') ? '' : '-jdk'}"
 
 	useJUnitPlatform()
 	testLogging {
