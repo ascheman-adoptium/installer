@@ -1,28 +1,28 @@
-temurin-8-jdk (8.0.352.0.0+8-2) STABLE; urgency=medium
+temurin-8-jre (8.0.352.0.0+8-2) STABLE; urgency=medium
 
   * Add Ubuntu Kinetic (22.10) to the list of supported Ubuntu releases.
 
  -- Eclipse Adoptium Package Maintainers <temurin-dev@eclipse.org>  Tue, 06 Dec 2022 15:42:00 +0000
 
-temurin-8-jdk (8.0.352.0.0+8-1) STABLE; urgency=medium
+temurin-8-jre (8.0.352.0.0+8-1) STABLE; urgency=medium
 
   * Eclipse Temurin 8.0.352.0.0+8-1 release.
 
  -- Eclipse Adoptium Package Maintainers <temurin-dev@eclipse.org>  Thu, 03 Nov 2022 20:22:20 +0000
 
-temurin-8-jdk (8.0.345.0.0+1-1) STABLE; urgency=medium
+temurin-8-jre (8.0.345.0.0+1-1) STABLE; urgency=medium
 
   * Eclipse Temurin 8.0.345.0.0+1 release.
 
  -- Eclipse Adoptium Package Maintainers <temurin-dev@eclipse.org>  Thu, 8 Aug 2022 11:26:00 +0000
 
-temurin-8-jdk (8.0.322.0.0+6-1) UNRELEASED; urgency=medium
+temurin-8-jre (8.0.322.0.0+6-1) UNRELEASED; urgency=medium
 
   * Eclipse Temurin 8.0.322.0.0+6-1 release.
 
  -- Eclipse Adoptium Package Maintainers <temurin-dev@eclipse.org>  Thu, 3 Feb 2022 11:58:00 +0000
 
-temurin-8-jdk (8.0.312.0.0+7-1) UNRELEASED; urgency=medium
+temurin-8-jre (8.0.312.0.0+7-1) UNRELEASED; urgency=medium
 
   * Eclipse Temurin 8.0.312.0.0+7-1 release.
 

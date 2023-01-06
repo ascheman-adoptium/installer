@@ -1,17 +1,18 @@
 #!/usr/bin/make -f
 
-pkg_name = temurin-8-jdk
+pkg_name = temurin-8-jre
+# TODO check this
 priority = 1081
 # The list below must be kept in sync with the jinfo.in file 
-jvm_tools = appletviewer clhsdb extcheck hsdb idlj jar jarsigner java javac javadoc javah javap jcmd jconsole jdb jdeps jfr jhat jinfo jjs jmap jps jrunscript jsadebugd jstack jstat jstatd keytool native2ascii orbd pack200 policytool rmic rmid rmiregistry schemagen serialver servertool tnameserv unpack200 wsgen wsimport xjc jexec
-amd64_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jdk_x64_linux_hotspot_8u352b08.tar.gz
-amd64_checksum = 1633bd7590cb1cd72f5a1378ae8294451028b274d798e2a4ac672059a2f00fee
-arm64_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jdk_aarch64_linux_hotspot_8u352b08.tar.gz
-arm64_checksum = a70768968bbcccccf977f036e87e545c3b080ed6c44072a01e9dadb94051c454
-armhf_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jdk_arm_linux_hotspot_8u352b08.tar.gz
-armhf_checksum = c9126fe87ebec147af2f237424d9b77f7ea5a9844999e8c90d046fdb741bf463
-ppc64el_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jdk_ppc64le_linux_hotspot_8u352b08.tar.gz
-ppc64el_checksum = 863791dd8e0536a678f5e439c9c67199a0f3f18c76138a8e242775dfe1784009
+jvm_tools = java jjs keytool orbd pack200 policytool rmid rmiregistry servertool tnameserv unpack200
+amd64_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jre_x64_linux_hotspot_8u352b08.tar.gz
+amd64_checksum = 40b6b4c3d8f7332ea479527b530413bf0dbc13cff3c0ed9fcadf1ca053bed106
+arm64_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jre_aarch64_linux_hotspot_8u352b08.tar.gz
+arm64_checksum = cce4db7c4311378d8d2a174b2cf680d57b52a4036f37c995b14f936b6fc1141a
+armhf_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jre_arm_linux_hotspot_8u352b08.tar.gz
+armhf_checksum = d5ef8ced672a1b391e7949190b8d24db16290e06f257816d5bd0969aed593852
+ppc64el_tarball_url = https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u352-b08/OpenJDK8U-jre_ppc64le_linux_hotspot_8u352b08.tar.gz
+ppc64el_checksum = 5649672dab65b3519ec16653fb2f154da90a7cd2afc568da03f3bff5c6b30a90
 
 d = debian/$(pkg_name)
 jvm_home = usr/lib/jvm
@@ -67,17 +68,8 @@ override_dh_auto_install:
 	rm -f "$(d)/$(jvm_home)/$(jvm_dir)/lib/libfreetype.so"
 
 	# Replace bundled cacerts and redirect to adoptium-ca-certificates.
-	rm -f "$(d)/$(jvm_home)/$(jvm_dir)/jre/lib/security/cacerts"
-	ln -s /etc/ssl/certs/adoptium/cacerts "$(d)/$(jvm_home)/$(jvm_dir)/jre/lib/security/cacerts"
-
-	# Ensure src.zip is present in the root folder of the JDK.
-	if [ ! -f "$(d)/$(jvm_home)/$(jvm_dir)/src.zip" ]; then \
-		if [ ! -f "$(d)/$(jvm_home)/$(jvm_dir)/lib/src.zip" ] ; then \
-			echo "Missing src.zip in binary distribution"; \
-			exit 1; \
-		fi; \
-		ln -s lib/src.zip "$(d)/$(jvm_home)/$(jvm_dir)/src.zip"; \
-	fi;
+	rm -f "$(d)/$(jvm_home)/$(jvm_dir)/lib/security/cacerts"
+	ln -s /etc/ssl/certs/adoptium/cacerts "$(d)/$(jvm_home)/$(jvm_dir)/lib/security/cacerts"
 
 override_dh_gencontrol:
 	dh_gencontrol --
