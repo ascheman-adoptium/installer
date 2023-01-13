@@ -44,8 +44,8 @@ jobs:
           name: test-results
           path: '**/build/test-results/**/TEST-*.xml'
 
-  check-jdk-packages:
-    name: "Check ${{ matrix.product.name }} ${{ matrix.product.version }} ${{ matrix.distro }}"
+  check-packages:
+    name: "Check ${{ matrix.image_type }} on ${{ matrix.product.name }} ${{ matrix.product.version }} ${{ matrix.distro }}"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -53,6 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        image_type: [Jdk, Jre]
         distro: [Alpine, Debian, RedHat, Suse]
         product: [
           { name: temurin, version: 8 },
@@ -76,13 +77,13 @@ jobs:
         run: |
           export _JAVA_OPTIONS="-Xmx4G"
           export DOCKER_BUILDKIT=1
-          ./gradlew --parallel packageJdk${{ matrix.distro }} checkJdk${{ matrix.distro }} -PPRODUCT=${{ matrix.product.name }} -PPRODUCT_VERSION=${{ matrix.product.version }} --stacktrace
+          ./gradlew --parallel package${{ matrix.image_type }}${{ matrix.distro }} check${{ matrix.image_type }}${{ matrix.distro }} -PPRODUCT=${{ matrix.product.name }} -PPRODUCT_VERSION=${{ matrix.product.version }} --stacktrace
 
       - name: Relocate test results
         if: always() # always run even if the previous step fails
         run: |
           mkdir ${{ matrix.product.version }}
-          mv jdk ${{ matrix.product.version }}
+          mv $( echo "${{ matrix.image_type }}" | tr [:upper:] [:lower:] ) ${{ matrix.product.version }}
 
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: always() # always run even if the previous step fails
