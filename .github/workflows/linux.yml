@@ -1,5 +1,10 @@
 name: Check Linux Packages
 on:
+  push:
+    branches: [ master, 'feature/**', 'bugfix/**' ]
+    paths:
+      - 'linux/**'
+      - '.github/workflows/linux.yml'
   pull_request:
     branches: [ master ]
     paths:
